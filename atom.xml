@@ -4,7 +4,7 @@
   <subtitle><![CDATA[在通向架构师的路上]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.ghsau.com/"/>
-  <updated>2014-05-24T18:08:47.254Z</updated>
+  <updated>2014-05-24T18:10:08.120Z</updated>
   <id>http://www.ghsau.com/</id>
   
   <author>
@@ -1212,8 +1212,8 @@
     <link href="http://www.ghsau.com/2013/11/29/xss%E6%94%BB%E5%87%BB%E5%8F%8A%E9%98%B2%E5%BE%A1/"/>
     <id>http://www.ghsau.com/2013/11/29/xss攻击及防御/</id>
     <published>2013-11-29T10:35:00.000Z</published>
-    <updated>2014-05-24T18:08:22.000Z</updated>
-    <content type="html"><![CDATA[<p>XSS又称CSS，全称Cross SiteScript，跨站脚本攻击，是Web程序中常见的漏洞，XSS属于被动式且用于客户端的攻击方式，所以容易被忽略其危害性。其原理是攻击者向有XSS漏洞的网站中输入(传入)恶意的HTML代码，当其它用户浏览该网站时，这段HTML代码会自动执行，从而达到攻击的目的。如，盗取用户Cookie、破坏页面结构、重定向到其它网站等。<br><!--readmore--></p>
+    <updated>2014-05-24T18:09:19.000Z</updated>
+    <content type="html"><![CDATA[<p>XSS又称CSS，全称Cross SiteScript，跨站脚本攻击，是Web程序中常见的漏洞，XSS属于被动式且用于客户端的攻击方式，所以容易被忽略其危害性。其原理是攻击者向有XSS漏洞的网站中输入(传入)恶意的HTML代码，当其它用户浏览该网站时，这段HTML代码会自动执行，从而达到攻击的目的。如，盗取用户Cookie、破坏页面结构、重定向到其它网站等。<br><a id="more"></a></p>
 <h1 id="XSS攻击">XSS攻击</h1>
 <p>XSS攻击类似于SQL注入攻击，攻击之前，我们先找到一个存在XSS漏洞的网站，XSS漏洞分为两种，一种是DOM Based XSS漏洞，另一种是Stored XSS漏洞。理论上，<strong>所有可输入的地方</strong>没有对输入数据进行处理的话，都会存在XSS漏洞，漏洞的危害取决于攻击代码的威力，攻击代码也不局限于script。</p>
 <h2 id="DOM_Based_XSS">DOM Based XSS</h2>
@@ -1399,7 +1399,7 @@
 
 <p>(完)</p>
 ]]></content>
-    
+    <summary type="html"><![CDATA[<p>XSS又称CSS，全称Cross SiteScript，跨站脚本攻击，是Web程序中常见的漏洞，XSS属于被动式且用于客户端的攻击方式，所以容易被忽略其危害性。其原理是攻击者向有XSS漏洞的网站中输入(传入)恶意的HTML代码，当其它用户浏览该网站时，这段HTML代码会自动执行，从而达到攻击的目的。如，盗取用户Cookie、破坏页面结构、重定向到其它网站等。<br>]]></summary>
     
       <category term="XSS" scheme="http://www.ghsau.com/tags/XSS/"/>
     
