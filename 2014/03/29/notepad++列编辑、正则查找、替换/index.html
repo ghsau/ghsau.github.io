@@ -1,0 +1,406 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Notepad++列编辑、正则查找、替换 | 高爽|Coder</title>
+  <meta name="author" content="ghsau">
+  
+  <meta name="description" content="在通向架构师的路上">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Notepad++列编辑、正则查找、替换"/>
+  <meta property="og:site_name" content="高爽|Coder"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon" type="image/x-ico">
+  <link rel="alternate" href="/atom.xml" title="高爽|Coder" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">高爽|Coder</a></h1>
+  <h2><a href="/">在通向架构师的路上</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+      <li><a href="/atom.xml">RSS</a></li>
+    
+	<li>
+        <a title="把这个链接拖到你的Chrome收藏夹工具栏中" href='javascript:(function() {
+	function c() {
+		var e = document.createElement("link");
+		e.setAttribute("type", "text/css");
+		e.setAttribute("rel", "stylesheet");
+		e.setAttribute("href", f);
+		e.setAttribute("class", l);
+		document.body.appendChild(e)
+	}
+ 
+	function h() {
+		var e = document.getElementsByClassName(l);
+		for (var t = 0; t < e.length; t++) {
+			document.body.removeChild(e[t])
+		}
+	}
+ 
+	function p() {
+		var e = document.createElement("div");
+		e.setAttribute("class", a);
+		document.body.appendChild(e);
+		setTimeout(function() {
+			document.body.removeChild(e)
+		}, 100)
+	}
+ 
+	function d(e) {
+		return {
+			height : e.offsetHeight,
+			width : e.offsetWidth
+		}
+	}
+ 
+	function v(i) {
+		var s = d(i);
+		return s.height > e && s.height < n && s.width > t && s.width < r
+	}
+ 
+	function m(e) {
+		var t = e;
+		var n = 0;
+		while (!!t) {
+			n += t.offsetTop;
+			t = t.offsetParent
+		}
+		return n
+	}
+ 
+	function g() {
+		var e = document.documentElement;
+		if (!!window.innerWidth) {
+			return window.innerHeight
+		} else if (e && !isNaN(e.clientHeight)) {
+			return e.clientHeight
+		}
+		return 0
+	}
+ 
+	function y() {
+		if (window.pageYOffset) {
+			return window.pageYOffset
+		}
+		return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+	}
+ 
+	function E(e) {
+		var t = m(e);
+		return t >= w && t <= b + w
+	}
+ 
+	function S() {
+		var e = document.createElement("audio");
+		e.setAttribute("class", l);
+		e.src = i;
+		e.loop = false;
+		e.addEventListener("canplay", function() {
+			setTimeout(function() {
+				x(k)
+			}, 500);
+			setTimeout(function() {
+				N();
+				p();
+				for (var e = 0; e < O.length; e++) {
+					T(O[e])
+				}
+			}, 15500)
+		}, true);
+		e.addEventListener("ended", function() {
+			N();
+			h()
+		}, true);
+		e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+		document.body.appendChild(e);
+		e.play()
+	}
+ 
+	function x(e) {
+		e.className += " " + s + " " + o
+	}
+ 
+	function T(e) {
+		e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+	}
+ 
+	function N() {
+		var e = document.getElementsByClassName(s);
+		var t = new RegExp("\\b" + s + "\\b");
+		for (var n = 0; n < e.length; ) {
+			e[n].className = e[n].className.replace(t, "")
+		}
+	}
+ 
+	var e = 30;
+	var t = 30;
+	var n = 350;
+	var r = 350;
+	var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+	var s = "mw-harlem_shake_me";
+	var o = "im_first";
+	var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+	var a = "mw-strobe_light";
+	var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+	var l = "mw_added_css";
+	var b = g();
+	var w = y();
+	var C = document.getElementsByTagName("*");
+	var k = null;
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			if (E(A)) {
+				k = A;
+				break
+			}
+		}
+	}
+	if (A === null) {
+		console.warn("Could not find a node of the right size. Please try a different page.");
+		return
+	}
+	c();
+	S();
+	var O = [];
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			O.push(A)
+		}
+	}
+})()    '>High一下</a>
+      </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-03-29T11:07:00.000Z"><a href="/2014/03/29/notepad++列编辑、正则查找、替换/">2014年03月29日</a></time>
+      
+      
+  
+    <h1 class="title">Notepad++列编辑、正则查找、替换</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><strong>目标</strong>：</p>
+<p>将源数据转成初始化sql语句。</p>
+<p><strong>源数据</strong>：</p>
+<pre><code><span class="number">104110040018</span>,<span class="number">1</span>,中国银行,中国银行天津琼州道支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市
+<span class="number">104110040059</span>,<span class="number">1</span>,中国银行,中国银行天津利民道支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市
+<span class="number">104110040091</span>,<span class="number">1</span>,中国银行,中国银行天津九龙路支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市
+<span class="number">104110040106</span>,<span class="number">1</span>,中国银行,中国银行天津枫林路支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市
+<span class="number">104110040139</span>,<span class="number">1</span>,中国银行,中国银行天津滨湖路支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市
+<span class="number">104110040155</span>,<span class="number">1</span>,中国银行,中国银行天津南楼支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市
+<span class="number">104110045006</span>,<span class="number">1</span>,中国银行,中国银行天津和平支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市
+<span class="number">104110050021</span>,<span class="number">1</span>,中国银行,中国银行天津海洋支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市
+<span class="number">104110050048</span>,<span class="number">1</span>,中国银行,中国银行泰达大街支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市
+</code></pre><p><a id="more"></a><br><strong>处理列头</strong>：</p>
+<p>将光标定位在第一行数据开始处，按alt+c组合键，弹出列编辑窗口，如图：<img src="http://img.blog.csdn.net/20140329183748562?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ2hzYXU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>插入相应文本，确定后，数据变成了下面这样：</p>
+<pre><code><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110040018</span>,<span class="number">1</span>,中国银行,中国银行天津琼州道支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市
+<span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110040059</span>,<span class="number">1</span>,中国银行,中国银行天津利民道支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市
+<span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110040091</span>,<span class="number">1</span>,中国银行,中国银行天津九龙路支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市
+<span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110040106</span>,<span class="number">1</span>,中国银行,中国银行天津枫林路支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市
+<span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110040139</span>,<span class="number">1</span>,中国银行,中国银行天津滨湖路支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市
+<span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110040155</span>,<span class="number">1</span>,中国银行,中国银行天津南楼支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市
+<span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110045006</span>,<span class="number">1</span>,中国银行,中国银行天津和平支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市
+<span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110050021</span>,<span class="number">1</span>,中国银行,中国银行天津海洋支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市
+<span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110050048</span>,<span class="number">1</span>,中国银行,中国银行泰达大街支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市</span>
+</code></pre><p><strong>处理列尾</strong>：</p>
+<p>按ctrl+h组合键，弹出替换窗口，如图：</p>
+<p><img src="http://img.blog.csdn.net/20140329184145937?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ2hzYXU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>windows下，每行都以这两个字符结束，\r使光标移到行首，\n使光标下移一行，注意要将查找模式选择为扩展，全部替换后，数据变成了下面这样：</p>
+<pre><code><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110040018</span>,<span class="number">1</span>,中国银行,中国银行天津琼州道支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市);</span>
+<span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110040059</span>,<span class="number">1</span>,中国银行,中国银行天津利民道支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市);</span>
+<span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110040091</span>,<span class="number">1</span>,中国银行,中国银行天津九龙路支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市);</span>
+<span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110040106</span>,<span class="number">1</span>,中国银行,中国银行天津枫林路支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市);</span>
+<span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110040139</span>,<span class="number">1</span>,中国银行,中国银行天津滨湖路支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市);</span>
+<span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110040155</span>,<span class="number">1</span>,中国银行,中国银行天津南楼支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市);</span>
+<span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110045006</span>,<span class="number">1</span>,中国银行,中国银行天津和平支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市);</span>
+<span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110050021</span>,<span class="number">1</span>,中国银行,中国银行天津海洋支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市);</span>
+<span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110050048</span>,<span class="number">1</span>,中国银行,中国银行泰达大街支行,<span class="keyword">NULL</span>,<span class="number">1100</span>,天津市,<span class="number">12</span>,天津市);</span>
+</code></pre><p><strong>处理文本</strong>：</p>
+<p>要将中文转换成两端带单引号的，匹配中文需要用正则<strong>[一-龥]+</strong>，这里的问题是我们替换的时候要获取当前匹配的字符串，按ctrl+h组合键，弹出替换窗口，如图：</p>
+<p><img src="http://img.blog.csdn.net/20140329185501875?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ2hzYXU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>使用小括号将匹配的字符串包上，然后替换值中可以通过$1表达式来获取到当前正在匹配的值，这里可以更复杂些，比如存在多个小括号，相应的可以使用$1、$2、$3来获取对应值，全部替换后，就是我们最终想要的数据了。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="code"><pre><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110040018</span>,<span class="number">1</span>,<span class="string">'中国银行'</span>,<span class="string">'中国银行天津琼州道支行'</span>,<span class="keyword">NULL</span>,<span class="number">1100</span>,<span class="string">'天津市'</span>,<span class="number">12</span>,<span class="string">'天津市'</span>);</span>
+<span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110040059</span>,<span class="number">1</span>,<span class="string">'中国银行'</span>,<span class="string">'中国银行天津利民道支行'</span>,<span class="keyword">NULL</span>,<span class="number">1100</span>,<span class="string">'天津市'</span>,<span class="number">12</span>,<span class="string">'天津市'</span>);</span>
+<span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110040091</span>,<span class="number">1</span>,<span class="string">'中国银行'</span>,<span class="string">'中国银行天津九龙路支行'</span>,<span class="keyword">NULL</span>,<span class="number">1100</span>,<span class="string">'天津市'</span>,<span class="number">12</span>,<span class="string">'天津市'</span>);</span>
+<span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110040106</span>,<span class="number">1</span>,<span class="string">'中国银行'</span>,<span class="string">'中国银行天津枫林路支行'</span>,<span class="keyword">NULL</span>,<span class="number">1100</span>,<span class="string">'天津市'</span>,<span class="number">12</span>,<span class="string">'天津市'</span>);</span>
+<span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110040139</span>,<span class="number">1</span>,<span class="string">'中国银行'</span>,<span class="string">'中国银行天津滨湖路支行'</span>,<span class="keyword">NULL</span>,<span class="number">1100</span>,<span class="string">'天津市'</span>,<span class="number">12</span>,<span class="string">'天津市'</span>);</span>
+<span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110040155</span>,<span class="number">1</span>,<span class="string">'中国银行'</span>,<span class="string">'中国银行天津南楼支行'</span>,<span class="keyword">NULL</span>,<span class="number">1100</span>,<span class="string">'天津市'</span>,<span class="number">12</span>,<span class="string">'天津市'</span>);</span>
+<span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110045006</span>,<span class="number">1</span>,<span class="string">'中国银行'</span>,<span class="string">'中国银行天津和平支行'</span>,<span class="keyword">NULL</span>,<span class="number">1100</span>,<span class="string">'天津市'</span>,<span class="number">12</span>,<span class="string">'天津市'</span>);</span>
+<span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110050021</span>,<span class="number">1</span>,<span class="string">'中国银行'</span>,<span class="string">'中国银行天津海洋支行'</span>,<span class="keyword">NULL</span>,<span class="number">1100</span>,<span class="string">'天津市'</span>,<span class="number">12</span>,<span class="string">'天津市'</span>);</span>
+<span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> t_bank <span class="keyword">values</span>(<span class="number">104110050048</span>,<span class="number">1</span>,<span class="string">'中国银行'</span>,<span class="string">'中国银行泰达大街支行'</span>,<span class="keyword">NULL</span>,<span class="number">1100</span>,<span class="string">'天津市'</span>,<span class="number">12</span>,<span class="string">'天津市'</span>);</span>
+</pre></td></tr></table></figure>
+
+
+      
+      <DIV style="FONT-SIZE: 11px; COLOR: #cc0000; MARGIN-TOP: 15px"><P align=center><STRONG>（转载本站文章请注明作者和出处 <A href="/">高爽|Coder</A> ，请勿用于任何商业用途）</STRONG></P></DIV>
+      <DIV style="MARGIN-BOTTOM: 50px; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; TEXT-ALIGN: center; PADDING-TOP: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px">——=== <B>访问 <A href="/404/" target="_blank">404页面</A> 寻找遗失儿童。</B> ===——</DIV>
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/开发环境/">开发环境</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/notepad++/">notepad++</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+        <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="/2014/03/29/notepad++列编辑、正则查找、替换/" data-title="Notepad++列编辑、正则查找、替换" data-url="http://www.ghsau.com/2014/03/29/notepad++列编辑、正则查找、替换/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"ghsau"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:www.ghsau.com">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Java SE/">Java SE</a><small>4</small></li>
+  
+    <li><a href="/categories/Java Web/">Java Web</a><small>4</small></li>
+  
+    <li><a href="/categories/Java SE/Java 线程/">Java 线程</a><small>1</small></li>
+  
+    <li><a href="/categories/开发环境/">开发环境</a><small>2</small></li>
+  
+    <li><a href="/categories/数据库/">数据库</a><small>1</small></li>
+  
+    <li><a href="/categories/非技术/">非技术</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/31/" style="font-size: 10.00px;">31</a><a href="/tags/MySQL/" style="font-size: 10.00px;">MySQL</a><a href="/tags/SSO/" style="font-size: 20.00px;">SSO</a><a href="/tags/XSS/" style="font-size: 10.00px;">XSS</a><a href="/tags/cookie/" style="font-size: 10.00px;">cookie</a><a href="/tags/eclipse/" style="font-size: 10.00px;">eclipse</a><a href="/tags/hashcode/" style="font-size: 10.00px;">hashcode</a><a href="/tags/notepad++/" style="font-size: 10.00px;">notepad++</a><a href="/tags/刨根问底/" style="font-size: 10.00px;">刨根问底</a><a href="/tags/多线程/" style="font-size: 10.00px;">多线程</a><a href="/tags/序列化/" style="font-size: 20.00px;">序列化</a><a href="/tags/线程安全/" style="font-size: 10.00px;">线程安全</a><a href="/tags/脚本攻击/" style="font-size: 10.00px;">脚本攻击</a>
+  </div>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">学习站点</h3>
+<ul class="entry">
+<li><a href="http://www.importnew.com/">ImportNew</a></li>
+<li><a href="http://blog.csdn.net/ghsau" title="CSDN博客">高爽|Coder</a></li>
+<li><a href="http://coolshell.cn/">CoolShell.cn</a></li>
+<li><a href="http://www.programcreek.com/">programcreek</a></li>
+<li><a href="http://stackoverflow.com/">Stack Overflow</a></li>
+<li><a href="http://robbinfan.com/">robbin的自言自语</a></li>
+<li><a href="http://www.ibm.com/developerworks/cn/java/">IBM developerworks</a></li>
+</ul>
+</div>
+
+  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=350&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=0&uid=1821192767&verifier=31c6f06c&dpc=1"></iframe>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2014 ghsau
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+  <a href="https://github.com/ghsau"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/82b228a3648bf44fc1163ef44c62fcc60081495e/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png"></a>
+</body>
+</html>

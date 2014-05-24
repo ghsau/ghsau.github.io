@@ -1,0 +1,575 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Java序列化(一) | 高爽|Coder</title>
+  <meta name="author" content="ghsau">
+  
+  <meta name="description" content="在通向架构师的路上">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Java序列化(一)"/>
+  <meta property="og:site_name" content="高爽|Coder"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon" type="image/x-ico">
+  <link rel="alternate" href="/atom.xml" title="高爽|Coder" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">高爽|Coder</a></h1>
+  <h2><a href="/">在通向架构师的路上</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+      <li><a href="/atom.xml">RSS</a></li>
+    
+	<li>
+        <a title="把这个链接拖到你的Chrome收藏夹工具栏中" href='javascript:(function() {
+	function c() {
+		var e = document.createElement("link");
+		e.setAttribute("type", "text/css");
+		e.setAttribute("rel", "stylesheet");
+		e.setAttribute("href", f);
+		e.setAttribute("class", l);
+		document.body.appendChild(e)
+	}
+ 
+	function h() {
+		var e = document.getElementsByClassName(l);
+		for (var t = 0; t < e.length; t++) {
+			document.body.removeChild(e[t])
+		}
+	}
+ 
+	function p() {
+		var e = document.createElement("div");
+		e.setAttribute("class", a);
+		document.body.appendChild(e);
+		setTimeout(function() {
+			document.body.removeChild(e)
+		}, 100)
+	}
+ 
+	function d(e) {
+		return {
+			height : e.offsetHeight,
+			width : e.offsetWidth
+		}
+	}
+ 
+	function v(i) {
+		var s = d(i);
+		return s.height > e && s.height < n && s.width > t && s.width < r
+	}
+ 
+	function m(e) {
+		var t = e;
+		var n = 0;
+		while (!!t) {
+			n += t.offsetTop;
+			t = t.offsetParent
+		}
+		return n
+	}
+ 
+	function g() {
+		var e = document.documentElement;
+		if (!!window.innerWidth) {
+			return window.innerHeight
+		} else if (e && !isNaN(e.clientHeight)) {
+			return e.clientHeight
+		}
+		return 0
+	}
+ 
+	function y() {
+		if (window.pageYOffset) {
+			return window.pageYOffset
+		}
+		return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+	}
+ 
+	function E(e) {
+		var t = m(e);
+		return t >= w && t <= b + w
+	}
+ 
+	function S() {
+		var e = document.createElement("audio");
+		e.setAttribute("class", l);
+		e.src = i;
+		e.loop = false;
+		e.addEventListener("canplay", function() {
+			setTimeout(function() {
+				x(k)
+			}, 500);
+			setTimeout(function() {
+				N();
+				p();
+				for (var e = 0; e < O.length; e++) {
+					T(O[e])
+				}
+			}, 15500)
+		}, true);
+		e.addEventListener("ended", function() {
+			N();
+			h()
+		}, true);
+		e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+		document.body.appendChild(e);
+		e.play()
+	}
+ 
+	function x(e) {
+		e.className += " " + s + " " + o
+	}
+ 
+	function T(e) {
+		e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+	}
+ 
+	function N() {
+		var e = document.getElementsByClassName(s);
+		var t = new RegExp("\\b" + s + "\\b");
+		for (var n = 0; n < e.length; ) {
+			e[n].className = e[n].className.replace(t, "")
+		}
+	}
+ 
+	var e = 30;
+	var t = 30;
+	var n = 350;
+	var r = 350;
+	var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+	var s = "mw-harlem_shake_me";
+	var o = "im_first";
+	var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+	var a = "mw-strobe_light";
+	var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+	var l = "mw_added_css";
+	var b = g();
+	var w = y();
+	var C = document.getElementsByTagName("*");
+	var k = null;
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			if (E(A)) {
+				k = A;
+				break
+			}
+		}
+	}
+	if (A === null) {
+		console.warn("Could not find a node of the right size. Please try a different page.");
+		return
+	}
+	c();
+	S();
+	var O = [];
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			O.push(A)
+		}
+	}
+})()    '>High一下</a>
+      </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-01-28T12:58:00.000Z"><a href="/2014/01/28/java序列化(一)/">2014年01月28日</a></time>
+      
+      
+  
+    <h1 class="title">Java序列化(一)</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>Java序列化，一个日常开发中比较少用到的技术。正常情况下，JVM启动后，我们可以创建对象生存其内，JVM关闭后，我们创建过的对象都随之销毁，资源释放。但有些时候可能要求在JVM停止之后，某些对象需要保存起来，以便将来再重新读取它们。举个例子，应用服务器的HttpSession对象，Session是指浏览器与服务器之间的一次会话，对应的是服务器中的一个Session对象，而客户端中保存一个jsessionid，这里回忆一下Session的知识，之前有文章详细的解析过Session，见<a href="http://blog.csdn.net/ghsau/article/details/13023425" target="_blank">Session深度解析</a>。那么当某种情况下，我们不得不重启服务器的时候，就需要把之前所有的Session对象保存起来，服务器重启之后，将这些Session对象再重新加载过来，这样避免了之前浏览器与服务器建立的会话失效，在浏览器那看来，就好象服务器没有关闭过一样(假设服务器重启期间用户没有操作)。这就用到了Java序列化技术，关于这个例子，我们可以拿Tomcat来测试一下，注意要用正常的手段来关闭服务器(shutdown.bat)，而非强制关闭，强制关闭没有序列化的过程。下面来看一个序列化的程序。</p>
+<p>首先创建一个可序列化的JavaBean类，Name.java。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+</pre></td><td class="code"><pre><span class="keyword">import</span> java.io.Serializable;
+
+<span class="javadoc">/**
+ * 可序列化的类，需要实现Serializable接口
+ *<span class="javadoctag"> @author</span> 爽
+ *
+ */</span>
+<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Name</span> <span class="keyword">implements</span> <span class="title">Serializable</span> {</span>
+
+  <span class="keyword">private</span> String firstname;
+  
+  <span class="keyword">private</span> String lastname;
+  
+  <span class="keyword">public</span> <span class="title">Name</span>() {
+    System.out.println(<span class="string">"无参构造器"</span>);
+  }
+
+  <span class="keyword">public</span> <span class="title">Name</span>(String firstname, String lastname) {
+    System.out.println(<span class="string">"全参构造器"</span>);
+    <span class="keyword">this</span>.firstname = firstname;
+    <span class="keyword">this</span>.lastname = lastname;
+  }
+
+  <span class="comment">// getter and setter methods</span>
+  
+  <span class="annotation">@Override</span>
+  <span class="keyword">public</span> String <span class="title">toString</span>() {
+    <span class="keyword">return</span> <span class="string">"我的名字是"</span> + firstname + <span class="string">","</span> + lastname;
+  }
+  
+}
+</pre></td></tr></table></figure>
+
+<a id="more"></a>    
+
+<p>再实现一个序列化的工具类，Serializations.java。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+</pre></td><td class="code"><pre><span class="keyword">import</span> java.io.FileInputStream;
+<span class="keyword">import</span> java.io.FileOutputStream;
+<span class="keyword">import</span> java.io.IOException;
+<span class="keyword">import</span> java.io.ObjectInputStream;
+<span class="keyword">import</span> java.io.ObjectOutputStream;
+
+<span class="javadoc">/**
+ * 序列化工具类
+ *<span class="javadoctag"> @author</span> 爽
+ *
+ */</span>
+<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Serializations</span> {</span>
+
+  <span class="javadoc">/**
+   * 序列化对象到指定路径文件
+   *<span class="javadoctag"> @param</span> outPath 文件路径
+   *<span class="javadoctag"> @param</span> outObj 需要序列化的对象
+   *<span class="javadoctag"> @throws</span> IOException 当I/O发生异常时
+   */</span>
+  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">serialize</span>(String outPath, Object outObj) <span class="keyword">throws</span> IOException {
+    ObjectOutputStream oos = <span class="keyword">null</span>;
+    <span class="keyword">try</span> {
+      oos = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(outPath));
+      oos.writeObject(outObj);
+    } <span class="keyword">finally</span> {
+      <span class="keyword">if</span>(oos != <span class="keyword">null</span>)    oos.close();
+    }
+  }
+  
+  <span class="javadoc">/**
+   * 从文件中逆序列化出对象
+   *<span class="javadoctag"> @param</span> inPath 文件路径
+   *<span class="javadoctag"> @return</span> 你序列化出的对象
+   *<span class="javadoctag"> @throws</span> IOException 当I/O发生异常时
+   *<span class="javadoctag"> @throws</span> ClassNotFoundException 当文件中不存在序列化的对象时
+   */</span>
+  <span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">deserialize</span>(String inPath) <span class="keyword">throws</span> IOException, ClassNotFoundException {
+    ObjectInputStream ois = <span class="keyword">null</span>;
+    <span class="keyword">try</span> {
+      ois = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(inPath));
+          <span class="keyword">return</span> ois.readObject();
+    } <span class="keyword">finally</span> {
+      <span class="keyword">if</span>(ois != <span class="keyword">null</span>)    ois.close();
+    }
+  }
+}
+</pre></td></tr></table></figure>
+
+<p>最后创建两个个测试类，来使用一下序列化方法和逆序列化方法，WriteObject.java。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="code"><pre><span class="keyword">import</span> java.io.IOException;
+
+<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WriteObject</span> {</span>
+
+  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String[] args) <span class="keyword">throws</span> IOException {
+    Name name = <span class="keyword">new</span> Name(<span class="string">"科比"</span>, <span class="string">"布莱恩特"</span>);
+    Serializations.serialize(args[<span class="number">0</span>], name);
+  }
+
+}
+</pre></td></tr></table></figure>
+
+<p>运行后，指定目录下会生成相应文件，其内包含了name对象信息。</p>
+<p>ReadObject.java。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="code"><pre>import java.io.IOException;
+
+<span class="keyword">public</span> <span class="keyword">class</span> ReadObject {
+
+  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String[] args) throws ClassNotFoundException, IOException {
+    Object obj = Serializations.deserialize(args[<span class="number">0</span>]);
+    System.<span class="keyword">out</span>.println(obj);
+  }
+
+}
+</pre></td></tr></table></figure>
+
+<p>运行后，输出：</p>
+<pre><code>我的名字是科比,布莱恩特
+</code></pre><p>我们成功的将name对象序列化到了指定文件中，并且通过逆序列化得到一个和原对象属性相同的对象。注意，逆序列化出的对象没有使用该对象的构造器(由输出结果可以证明)，并且和原对象不相等。<strong>对象的默认序列化机制</strong>：序列化时，对象的类、类的签名，以及类及其所有超类型的非瞬态(non-transient)和非静态(non-static)字段的值都将被写入。逆序列化时，对象的类、类的签名，以及类及其所有超类型的非瞬态(non-transient)和非静态(non-static)字段的值都将被读取。如果我们想某个成员变量不被序列化，可以在其前面加入<strong>transient</strong>关键字。如：</p>
+<pre><code><span class="keyword">private</span> <span class="keyword">transient</span> String lastname;
+</code></pre><p>如果对象所属类在对象序列化之后做了修改，比如修改属性名称、类型、修饰符等等，再次逆序列化就会发生异常，如我们将lastname前加入<strong>transient</strong>，使用ReadObject.java进行逆序列化，&nbsp;将会抛出如下异常：</p>
+<pre><code>Exception <span class="keyword">in</span> thread <span class="string">"main"</span> java<span class="preprocessor">.io</span><span class="preprocessor">.InvalidClassException</span>: Name<span class="comment">; local class incompatible: stream classdesc serialVersionUID = 3999552307707967101, local class serialVersionUID = -4860856635192050881</span>
+    at java<span class="preprocessor">.io</span><span class="preprocessor">.ObjectStreamClass</span><span class="preprocessor">.initNonProxy</span>(ObjectStreamClass<span class="preprocessor">.java</span>:<span class="number">604</span>)
+    at java<span class="preprocessor">.io</span><span class="preprocessor">.ObjectInputStream</span><span class="preprocessor">.readNonProxyDesc</span>(ObjectInputStream<span class="preprocessor">.java</span>:<span class="number">1601</span>)
+    at java<span class="preprocessor">.io</span><span class="preprocessor">.ObjectInputStream</span><span class="preprocessor">.readClassDesc</span>(ObjectInputStream<span class="preprocessor">.java</span>:<span class="number">1514</span>)
+    at java<span class="preprocessor">.io</span><span class="preprocessor">.ObjectInputStream</span><span class="preprocessor">.readOrdinaryObject</span>(ObjectInputStream<span class="preprocessor">.java</span>:<span class="number">1750</span>)
+    at java<span class="preprocessor">.io</span><span class="preprocessor">.ObjectInputStream</span><span class="preprocessor">.readObject</span>0(ObjectInputStream<span class="preprocessor">.java</span>:<span class="number">1347</span>)
+    at java<span class="preprocessor">.io</span><span class="preprocessor">.ObjectInputStream</span><span class="preprocessor">.readObject</span>(ObjectInputStream<span class="preprocessor">.java</span>:<span class="number">369</span>)
+    at Serializations<span class="preprocessor">.deserialize</span>(Serializations<span class="preprocessor">.java</span>:<span class="number">43</span>)
+    at ReadObject<span class="preprocessor">.main</span>(SerializationsTest<span class="preprocessor">.java</span>:<span class="number">14</span>)
+</code></pre><p>异常的大概描述是说流中的类的版本号和本地类的版本号不一致，这里要引入一个序列化版本号(serialVersionUID)的概念，<strong>serialVersionUID</strong>是一个64位的值，在类中需要声明为private static final long，它可以人为来维护，也可以通过<a href="http://docs.oracle.com/javase/6/docs/platform/serialization/spec/class.html#4100" target="_blank">JVM实现的算法</a>来生成，安装JDK后，可以通过%JAVA_HOME%/bin/serialver.exe来生成<span style="font-weight:bold">serialVersionUID</span>。在逆序列化时，会将从对象流中读取的类信息和当前classpath下的相应类的类信息(Name.class)进行比对，比对的媒介就是<span style="font-weight:bold">serialVersionUID</span>，如果对象中没有声明serialVersionUID，那么该值就会通过默认的算法生成，两端不一致时，就会抛出上面的异常，逆序列化失败。</p>
+<p>当编写一个可序列化的类时(Name.java)，可以给serialVersionUID赋一个即简单又易理解的值，如：</p>
+<pre><code><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1</span>L;
+</code></pre><p>如果对该类进行了更改，可能需要同时更新serialVersionUID，如：</p>
+<pre><code><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">2</span>L;
+</code></pre><p>但有时我们可能即使更改了类之后，仍然要保持之前序列化的可逆性，也就是对之前的序列化文件做个兼容，那么就不能更新serialVersionUID的值，这时更改前生成的序列化文件依然可逆序列化，那么其更新的字段会已字段类型的预设值逆序列化，避开不兼容的问题。</p>
+
+      
+      <DIV style="FONT-SIZE: 11px; COLOR: #cc0000; MARGIN-TOP: 15px"><P align=center><STRONG>（转载本站文章请注明作者和出处 <A href="/">高爽|Coder</A> ，请勿用于任何商业用途）</STRONG></P></DIV>
+      <DIV style="MARGIN-BOTTOM: 50px; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; TEXT-ALIGN: center; PADDING-TOP: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px">——=== <B>访问 <A href="/404/" target="_blank">404页面</A> 寻找遗失儿童。</B> ===——</DIV>
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Java SE/">Java SE</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/序列化/">序列化</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+        <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="/2014/01/28/java序列化(一)/" data-title="Java序列化(一)" data-url="http://www.ghsau.com/2014/01/28/java序列化(一)/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"ghsau"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:www.ghsau.com">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Java SE/">Java SE</a><small>4</small></li>
+  
+    <li><a href="/categories/Java Web/">Java Web</a><small>4</small></li>
+  
+    <li><a href="/categories/Java SE/Java 线程/">Java 线程</a><small>1</small></li>
+  
+    <li><a href="/categories/开发环境/">开发环境</a><small>2</small></li>
+  
+    <li><a href="/categories/数据库/">数据库</a><small>1</small></li>
+  
+    <li><a href="/categories/非技术/">非技术</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/31/" style="font-size: 10.00px;">31</a><a href="/tags/MySQL/" style="font-size: 10.00px;">MySQL</a><a href="/tags/SSO/" style="font-size: 20.00px;">SSO</a><a href="/tags/XSS/" style="font-size: 10.00px;">XSS</a><a href="/tags/cookie/" style="font-size: 10.00px;">cookie</a><a href="/tags/eclipse/" style="font-size: 10.00px;">eclipse</a><a href="/tags/hashcode/" style="font-size: 10.00px;">hashcode</a><a href="/tags/notepad++/" style="font-size: 10.00px;">notepad++</a><a href="/tags/刨根问底/" style="font-size: 10.00px;">刨根问底</a><a href="/tags/多线程/" style="font-size: 10.00px;">多线程</a><a href="/tags/序列化/" style="font-size: 20.00px;">序列化</a><a href="/tags/线程安全/" style="font-size: 10.00px;">线程安全</a><a href="/tags/脚本攻击/" style="font-size: 10.00px;">脚本攻击</a>
+  </div>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">学习站点</h3>
+<ul class="entry">
+<li><a href="http://www.importnew.com/">ImportNew</a></li>
+<li><a href="http://blog.csdn.net/ghsau" title="CSDN博客">高爽|Coder</a></li>
+<li><a href="http://coolshell.cn/">CoolShell.cn</a></li>
+<li><a href="http://www.programcreek.com/">programcreek</a></li>
+<li><a href="http://stackoverflow.com/">Stack Overflow</a></li>
+<li><a href="http://robbinfan.com/">robbin的自言自语</a></li>
+<li><a href="http://www.ibm.com/developerworks/cn/java/">IBM developerworks</a></li>
+</ul>
+</div>
+
+  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=350&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=0&uid=1821192767&verifier=31c6f06c&dpc=1"></iframe>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2014 ghsau
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+  <a href="https://github.com/ghsau"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/82b228a3648bf44fc1163ef44c62fcc60081495e/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png"></a>
+</body>
+</html>
