@@ -245,8 +245,6 @@
 
 
       
-      <DIV style="FONT-SIZE: 11px; COLOR: #cc0000; MARGIN-TOP: 15px"><P align=center><STRONG>（转载本站文章请注明作者和出处 <A href="/">高爽|Coder</A> ，请勿用于任何商业用途）</STRONG></P></DIV>
-      <DIV style="MARGIN-BOTTOM: 50px; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; TEXT-ALIGN: center; PADDING-TOP: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px">——=== <B>访问 <A href="/404/" target="_blank">404页面</A> 寻找遗失儿童。</B> ===——</DIV>
     </div>
     <footer>
       
@@ -284,8 +282,6 @@
         <p>完全跨域的单点登录实现方案基本和上篇文章介绍的一样，只不过生成ticket的过程更复杂些。上篇文章中的项目是不能完全跨域的，由于多个应用系统以及认证系统域不同，也没有共同的父域，导致登录后，认证系统向浏览器写的ticket在其它应用系统中获取不到，这时访问其它应用系统时，没有携带着ticket的cookie，无法认证也无法单点登录。那解决的方案是每个应用系统都向浏览器cookie中写入ticket，请看下图，图中浅蓝色圆角区域代表不同的域，当用户通过浏览器第一次访问应用系统1时，由于还没有登录，会被引导到认证系统进行登录。下面开始单点登录的过程：<span style="background-color:rgb(255,255,255)"><span style="color:#3333ff">认证系统根据用户在浏览器中输入的登录信息，进行身份认证，如果认证通过，返回给浏览器一个证明[认证系统_ticket]；这时再通过浏览器将[认证系统_ticket]发送到到应用系统1的设置cookie的url，应用系统1返回给浏览器一个证明[应用系统1_ticket]，这时再将请求重定向到最初访问的页面，以后应用系统1就可以自动登录了。现在用户访问了应用系统2，由于应用系统2没有生成过cookie（但是用户已经在应用系统1登录过一次了），将请求重定向到认证系统；认证系统检测到已经生成过[认证系统_ticket]了，认证通过；再通过浏览器将[认证系统_ticket]发送到到应用系统2的设置cookie的url，应用系统2返回给浏览器一个证明[应用系统2_ticket]，这时再将请求重定向到最初访问的页面。应用系统3也同样原理，我们等于将ticket做了一次同步，保证了每个应用系统都有一份认证系统产生的ticket。剩余的ticket验证过程和上篇文章一样了。</span></span><img src="http://img.blog.csdn.net/20140305150846046?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ2hzYXU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
 <p>ticket同步的过程用jsonp应该也可以实现，我基于上篇文章中的项目实现了完全跨域的单点登录，可以在<a href="http://download.csdn.net/detail/ghsau/6995969" target="_blank">这里</a>下载项目。<br>
       
-      <DIV style="FONT-SIZE: 11px; COLOR: #cc0000; MARGIN-TOP: 15px"><P align=center><STRONG>（转载本站文章请注明作者和出处 <A href="/">高爽|Coder</A> ，请勿用于任何商业用途）</STRONG></P></DIV>
-      <DIV style="MARGIN-BOTTOM: 50px; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; TEXT-ALIGN: center; PADDING-TOP: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px">——=== <B>访问 <A href="/404/" target="_blank">404页面</A> 寻找遗失儿童。</B> ===——</DIV>
     </div>
     <footer>
       
@@ -324,8 +320,6 @@
 <p>单点登录实际上是“身份认证”的整合，当我们存在多个应用时，我们希望登录了其中的一个应用，再访问其他应用时，会自动登录，避免用户重复的体力劳动。单点登录的实现原理是比较简单的，如下图所示，当用户通过浏览器第一次访问应用系统1时，由于还没有登录，会被引导到认证系统进行登录。下面开始单点登录的过程：<span style="color:#3333ff">认证系统根据用户在浏览器中输入的登录信息，进行身份认证，如果认证通过，返回给浏览器一个证明ticket(票)；用户再访问其它应用系统时，会带着ticket；应用系统接收到ticket后，会将其发送到认证系统进行合法性校验；校验通过后，用户就不需要再次输入用户名密码来登录了，从而实现了单点登录的功能</span>。<img src="http://img.blog.csdn.net/20140304211546578?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ2hzYXU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
 <p>上面描述的过程实际上是WEB-SSO。要实现SSO，首先必须要有统一的认证系统，其次每个应用系统都通过认证系统来校验用户，所以这需要两方面的配合。WEB-SSO是比较好实现的，尤其是共同父域的情况下，我们可以通过浏览器的cookie来保存ticket。今天我用Servlet技术实现了SSO的主要功能，可以在<a href="http://download.csdn.net/detail/ghsau/6993043" target="_blank">这里</a>下载项目。<br>
       
-      <DIV style="FONT-SIZE: 11px; COLOR: #cc0000; MARGIN-TOP: 15px"><P align=center><STRONG>（转载本站文章请注明作者和出处 <A href="/">高爽|Coder</A> ，请勿用于任何商业用途）</STRONG></P></DIV>
-      <DIV style="MARGIN-BOTTOM: 50px; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; TEXT-ALIGN: center; PADDING-TOP: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px">——=== <B>访问 <A href="/404/" target="_blank">404页面</A> 寻找遗失儿童。</B> ===——</DIV>
     </div>
     <footer>
       
@@ -364,8 +358,6 @@
 <p><strong>Cookie简介</strong></p>
 <p>众所周知，Web协议（也就是HTTP）是一个无状态的协议（HTTP1.0）。一个Web应用由很多个Web页面组成，每个页面都有唯一的URL来定义。用户在浏览器的地址栏输入页面的URL，浏览器就会向Web Server去发送请求。如下图，浏览器向Web服务器发送了两个请求，申请了两个页面。这两个页面的请求是分别使用了两个单独的HTTP连接。所谓无状态的协议也就是表现在这里，浏览器和Web服务器会在第一个请求完成以后关闭连接通道，在第二个请求的时候重新建立连接。Web服务器并不区分哪个请求来自哪个客户端，对所有的请求都一视同仁，都是单独的连接。这样的方式大大区别于传统的（Client/Server）C/S结构,在那样的应用中，客户端和服务器端会建立一个长时间的专用的连接通道。正是因为有了无状态的特性，每个连接资源能够很快被其他客户端所重用，一台Web服务器才能够同时服务于成千上万的客户端。<img src="http://img.blog.csdn.net/20140303202645515?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ2hzYXU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br>
       
-      <DIV style="FONT-SIZE: 11px; COLOR: #cc0000; MARGIN-TOP: 15px"><P align=center><STRONG>（转载本站文章请注明作者和出处 <A href="/">高爽|Coder</A> ，请勿用于任何商业用途）</STRONG></P></DIV>
-      <DIV style="MARGIN-BOTTOM: 50px; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; TEXT-ALIGN: center; PADDING-TOP: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px">——=== <B>访问 <A href="/404/" target="_blank">404页面</A> 寻找遗失儿童。</B> ===——</DIV>
     </div>
     <footer>
       
@@ -482,8 +474,6 @@
 
 <p>
       
-      <DIV style="FONT-SIZE: 11px; COLOR: #cc0000; MARGIN-TOP: 15px"><P align=center><STRONG>（转载本站文章请注明作者和出处 <A href="/">高爽|Coder</A> ，请勿用于任何商业用途）</STRONG></P></DIV>
-      <DIV style="MARGIN-BOTTOM: 50px; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; TEXT-ALIGN: center; PADDING-TOP: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px">——=== <B>访问 <A href="/404/" target="_blank">404页面</A> 寻找遗失儿童。</B> ===——</DIV>
     </div>
     <footer>
       
@@ -587,6 +577,12 @@
   $('.fancybox').fancybox();
 })(jQuery);
 </script>
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;">
+  <a title="返回顶部"><img src="/images/scrollup.png"/></a>
+</div>
+<script src="/js/totop.js"></script>
 
   <a href="https://github.com/ghsau"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/82b228a3648bf44fc1163ef44c62fcc60081495e/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png"></a>
 </body>
