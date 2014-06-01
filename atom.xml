@@ -4,7 +4,7 @@
   <subtitle><![CDATA[在通向架构师的路上]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.ghsau.com/"/>
-  <updated>2014-06-01T09:57:02.702Z</updated>
+  <updated>2014-06-01T09:57:50.883Z</updated>
   <id>http://www.ghsau.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://www.ghsau.com/2014/06/01/guava-collect/"/>
     <id>http://www.ghsau.com/2014/06/01/guava-collect/</id>
     <published>2014-06-01T04:52:37.000Z</published>
-    <updated>2014-06-01T09:49:27.000Z</updated>
+    <updated>2014-06-01T09:57:41.000Z</updated>
     <content type="html"><![CDATA[<h2 id="Guava是什么">Guava是什么</h2>
 <p>进入新公司就会接触一些新的东东，Guava就是一个，Guava是Google的一个开源类库，丰富了JDK的API，而且使用起来很方便，本文介绍的是Guava collect包下的一些常用工具类。</p>
 <p><img src="/images/guava_package.png" alt=""></p>
@@ -83,7 +83,7 @@ List&lt;<span class="built_in">String</span>&gt; strList = Arrays.asList(strArra
 </code></pre><p>可以想想，这是由数组决定的特性，这种List实际上就是数组的一个变形，List更方便开发者来使用。</p>
 <p>Guava可以创建一个完全不可变的集合，如下代码：</p>
 <pre><code><span class="keyword">List</span>&lt;<span class="keyword">String</span>&gt; strList = ImmutableList.of(<span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>);
-</code></pre><p>本文只是对Guava Collect的管中窥豹,也仅仅介绍了List部分，更多请移步：<a href="https://code.google.com/p/guava-libraries/wiki/。" target="_blank">https://code.google.com/p/guava-libraries/wiki/。</a></p>
+</code></pre><p>本文只是对Guava Collect的管中窥豹，也仅仅介绍了List部分，更多请移步：<a href="https://code.google.com/p/guava-libraries/wiki/。" target="_blank">https://code.google.com/p/guava-libraries/wiki/。</a></p>
 ]]></content>
     <summary type="html"><![CDATA[<h2 id="Guava是什么">Guava是什么</h2>
 <p>进入新公司就会接触一些新的东东，Guava就是一个，Guava是Google的一个开源类库，丰富了JDK的API，而且使用起来很方便，本文介绍的是Guava collect包下的一些常用工具类。</p>
