@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Cookie深度解析 | 高爽|Coder</title>
+  <title>Guava Collect | 高爽|Coder</title>
   <meta name="author" content="ghsau">
   
   <meta name="description" content="在通向架构师的路上">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Cookie深度解析"/>
+  <meta property="og:title" content="Guava Collect"/>
   <meta property="og:site_name" content="高爽|Coder"/>
 
   
@@ -205,53 +205,40 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-03-04T04:37:00.000Z"><a href="/2014/03/04/cookie深度解析/">2014年03月04日</a></time>
+        <time datetime="2014-06-01T04:52:37.000Z"><a href="/2014/06/01/guava-collect/">2014年06月01日</a></time>
       
       
   
-    <h1 class="title">Cookie深度解析</h1>
+    <h1 class="title">Guava Collect</h1>
   
 
     </header>
     <div class="entry">
       
-        <p>最近在公司做了Web端单点登录(SSO)功能，基于Cookie实现，做完之后感觉有必要总结一下，本文着重讲解Cookie，下文会说明单点登录的实现方案。</p>
-<p><strong>Cookie简介</strong></p>
-<p>众所周知，Web协议（也就是HTTP）是一个无状态的协议（HTTP1.0）。一个Web应用由很多个Web页面组成，每个页面都有唯一的URL来定义。用户在浏览器的地址栏输入页面的URL，浏览器就会向Web Server去发送请求。如下图，浏览器向Web服务器发送了两个请求，申请了两个页面。这两个页面的请求是分别使用了两个单独的HTTP连接。所谓无状态的协议也就是表现在这里，浏览器和Web服务器会在第一个请求完成以后关闭连接通道，在第二个请求的时候重新建立连接。Web服务器并不区分哪个请求来自哪个客户端，对所有的请求都一视同仁，都是单独的连接。这样的方式大大区别于传统的（Client/Server）C/S结构,在那样的应用中，客户端和服务器端会建立一个长时间的专用的连接通道。正是因为有了无状态的特性，每个连接资源能够很快被其他客户端所重用，一台Web服务器才能够同时服务于成千上万的客户端。<img src="http://img.blog.csdn.net/20140303202645515?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ2hzYXU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br><a id="more"></a><br>但是我们通常的应用是有状态的。先不用提不同应用之间的SSO，在同一个应用中也需要保存用户的登录身份信息。例如用户在访问页面1的时候进行了登录，但是刚才也提到，客户端的每个请求都是单独的连接，当客户再次访问页面2的时候，如何才能告诉Web服务器，客户刚才已经登录过了呢？浏览器和服务器之间有约定：通过使用cookie技术来维护应用的状态。Cookie是可以被Web服务器设置的字符串，并且可以保存在浏览器中。如下图所示，当浏览器访问了页面1时，web服务器设置了一个cookie，并将这个cookie和页面1一起返回给浏览器，浏览器接到cookie之后，就会保存起来，在它访问页面2的时候会把这个cookie也带上，Web服务器接到请求时也能读出cookie的值，根据cookie值的内容就可以判断和恢复一些用户的信息状态。<img src="http://img.blog.csdn.net/20140303203325796?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ2hzYXU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
-<p><strong>Cookie组成</strong></p>
-<p>cookie是由名称、内容、作用路径、作用域、协议、生存周期组成，另外还有个HttpOnly属性，HttpOnly属性很重要，如果您在cookie中设置了HttpOnly属性，那么通过js脚本(document.cookie)将无法读取到cookie信息，这样能一定程度上的防止XSS攻击，关于XSS可以看我之前的文章—<a href="http://blog.csdn.net/ghsau/article/details/17027893" target="_blank">XSS攻击及防御</a>。Tomcat服务器设置的JSESSIONID就是HttpOnly的。<img src="http://img.blog.csdn.net/20140303213906046?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ2hzYXU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
-<p>JavaEE中对cookie做了封装，对应的是下面这个类：</p>
-<pre><code>java<span class="preprocessor">.lang</span><span class="preprocessor">.Object</span>
-  |
-  +--javax<span class="preprocessor">.servlet</span><span class="preprocessor">.http</span><span class="preprocessor">.Cookie</span>
-</code></pre><p>该类可以设置cookie的名称、内容、作用路径、作用域、协议、生存周期，but不能设置HttpOnly属性，不知道这么做是出于什么考虑，如果非要设置HttpOnly的cookie，我们可以通过响应头来处理：</p>
-<pre><code>response.setHeader("<span class="operator"><span class="keyword">Set</span>-Cookie<span class="string">", "</span>cookiename=<span class="keyword">value</span>;</span>Path=/;Domain=domainvalue;Max-Age=seconds;HttpOnly");
-</code></pre><p><strong>Cookie作用域</strong></p>
-<p>测试Cookie的作用域需要弄几个域名，修改C:\Windows\System32\drivers\etc\hosts文件，将本机ip映射出四个域名，如下：</p>
-<pre><code><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> web1<span class="preprocessor">.ghsau</span><span class="preprocessor">.com</span>
-<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> web2<span class="preprocessor">.ghsau</span><span class="preprocessor">.com</span>
+        <h2 id="Guava是什么">Guava是什么</h2>
+<p>进入新公司就会接触一些新的东东，Guava就是一个，Guava是Google的一个开源类库，丰富了JDK的API，而且使用起来很方便，本文介绍的是Guava collect包下的一些常用工具类。</p>
+<p><img src="/images/guava_package.png" alt=""></p>
+<p>项目主页：<a href="https://code.google.com/p/guava-libraries/" target="_blank">https://code.google.com/p/guava-libraries/</a></p>
+<p>源码下载(GIT)：git clone <a href="https://code.google.com/p/guava-libraries/" target="_blank">https://code.google.com/p/guava-libraries/</a></p>
+<p>Maven依赖：</p>
+<pre><code><span class="tag">&lt;<span class="title">groupId</span>&gt;</span>com.google.guava<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span>
+<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>guava<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span>
+<span class="tag">&lt;<span class="title">version</span>&gt;</span>17.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span>
+</code></pre><a id="more"></a>
 
-<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> web1<span class="preprocessor">.com</span>
-<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> web2<span class="preprocessor">.com</span>
-</code></pre><p>前两个是2级域名(ghsau.com)相同，3级域名(web1、web2)不同，后两个是2级域名不同。然后我们再写两个jsp，一个用于设置Cookie，另一个用于显示Cookie。</p>
-<p>SetCookie.jsp：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-</pre></td><td class="code"><pre><span class="vbscript">&lt;%@ page language=<span class="string">"java"</span> contentType=<span class="string">"text/html; charset=utf-8"</span> pageEncoding=<span class="string">"utf-8"</span>%&gt;</span>
-<span class="vbscript">&lt;%
-	Cookie cookie = <span class="keyword">new</span> Cookie(<span class="string">"test_key"</span>, <span class="string">"test_value"</span>);
-	cookie.setPath(<span class="string">"/"</span>);
-	// cookie.setDomain(<span class="string">".ghsau.com"</span>);
-	<span class="built_in">response</span>.addCookie(cookie);
-%&gt;</span>
-</pre></td></tr></table></figure>
-
-<p>ShowCookie.jsp：</p>
+<h2 id="代码演示">代码演示</h2>
+<h3 id="List">List</h3>
+<p>一般情况下，我们创建一个List集合，使用如下代码：</p>
+<pre><code><span class="built_in">List</span><span class="subst">&lt;</span><span class="built_in">String</span><span class="subst">&gt;</span> strList <span class="subst">=</span> <span class="literal">new</span> ArrayList<span class="subst">&lt;</span><span class="built_in">String</span><span class="subst">&gt;</span>();
+strList<span class="built_in">.</span>add(<span class="string">"1"</span>);
+strList<span class="built_in">.</span>add(<span class="string">"2"</span>);
+strList<span class="built_in">.</span>add(<span class="string">"3"</span>);
+</code></pre><p>使用Collections工具类，可以简化：</p>
+<pre><code><span class="built_in">List</span><span class="subst">&lt;</span><span class="built_in">String</span><span class="subst">&gt;</span> strList <span class="subst">=</span> <span class="literal">new</span> ArrayList<span class="subst">&lt;</span><span class="built_in">String</span><span class="subst">&gt;</span>();
+Collections<span class="built_in">.</span>addAll(strList, <span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>);
+</code></pre><p>使用Guava，可以进一步简化：</p>
+<pre><code><span class="keyword">List</span>&lt;<span class="keyword">String</span>&gt; strList = Lists.newArrayList(<span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>);
+</code></pre><p>Lists.newArrayList(“1”, “2”, “3”)其实就是对第二步的一个封装，并且这里使用了Java泛型推断，可以看一下源码：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
@@ -260,24 +247,38 @@
 6
 7
 8
-9
-10
-</pre></td><td class="code"><pre>&lt;<span class="variable">%@</span> page language=<span class="string">"java"</span> contentType=<span class="string">"text/html; charset=utf-8"</span> pageEncoding=<span class="string">"utf-8"</span><span class="variable">%&gt;</span>
-&lt;%
-	<span class="comment">// 输出cookies，过滤掉JSESSIONID</span>
-	Cookie[] cookies = request.getCookies();
-	<span class="keyword">if</span>(cookies != null)
-		<span class="keyword">for</span>(Cookie cookie : cookies) {
-			<span class="keyword">if</span>(cookie.getName().equals(<span class="string">"JSESSIONID"</span>))    <span class="keyword">continue</span>;
-			out.println(cookie.getName() + <span class="string">"-"</span> + cookie.getValue());
-		}
-<span class="variable">%&gt;</span>
+</pre></td><td class="code"><pre><span class="keyword">public</span> <span class="keyword">static</span> &lt;E&gt; ArrayList&lt;E&gt; newArrayList(E... elements) {
+    checkNotNull(elements); <span class="comment">// for GWT</span>
+    <span class="comment">// Avoid integer overflow when a large array is passed in</span>
+    <span class="keyword">int</span> capacity = computeArrayListCapacity(elements.length);
+    ArrayList&lt;E&gt; <span class="built_in">list</span> = <span class="keyword">new</span> ArrayList&lt;E&gt;(capacity);
+    Collections.addAll(<span class="built_in">list</span>, elements);
+    <span class="keyword">return</span> <span class="built_in">list</span>;
+}
 </pre></td></tr></table></figure>
 
-<p>将这两个jsp放到应用后，部署到服务器中，启动服务器，我们就可以通过域名来访问了。</p>
-<p>测试一，首先访问<a href="http://web1.ghsau.com:8080/WebSSOAuth/SetCookie.jsp" target="_blank">http://web1.ghsau.com:8080/WebSSOAuth/SetCookie.jsp</a>，设置cookie后，再访问<a href="http://web1.ghsau.com:8080/WebSSOAuth/ShowCookie.jsp" target="_blank">http://web1.ghsau.com:8080/WebSSOAuth/ShowCookie.jsp</a>，页面输出test_key=test_value，这时我们访问<a href="http://web2.ghsau.com:8080/WebSSOAuth/ShowCookie.jsp" target="_blank">http://web2.ghsau.com:8080/WebSSOAuth/ShowCookie.jsp</a>，发现页面什么都没有输出，这时我们得出结论，cookie默认情况下作用域为当前域名。<br>测试二，将SetCookie.jsp第五行注释打开，按照上面的顺序依次访问，我们发现<a href="http://web2.ghsau.com:8080/WebSSOAuth/ShowCookie.jsp" target="_blank">http://web2.ghsau.com:8080/WebSSOAuth/ShowCookie.jsp</a>中输出了<a href="http://web1.ghsau.com:8080/WebSSOAuth/SetCookie.jsp" target="_blank">http://web1.ghsau.com:8080/WebSSOAuth/SetCookie.jsp</a>中设置的cookie，这时我们得出结论，cookie作用域为父级域名时，所有子级域名都可以得到该cookie，这也是实现跨子域SSO的关键。这时有些朋友可能会想到那我把cookie作用域设置到顶级域名(.com、.net)上，是不是用该顶级域名的网站就都能获取该cookie了？这样设置的cookie，浏览器是不存储的，无效的cookie。<br>测试三，修改SetCookie.jsp第五行代码为cookie.setDomain(“.web2.com”)，首先访问<a href="http://web1.com:8080/WebSSOAuth/SetCookie.jsp" target="_blank">http://web1.com:8080/WebSSOAuth/SetCookie.jsp</a>，设置cookie后，这时我们访问<a href="http://web2.com:8080/WebSSOAuth/ShowCookie.jsp" target="_blank">http://web2.com:8080/WebSSOAuth/ShowCookie.jsp</a>，发现页面什么都没有输出，这时我们得出结论，cookie不能跨二级域名设置。</p>
-<p><strong>Cookie安全性</strong></p>
-<p>cookie中的数据通常会包含用户的隐私数据，首先要保证数据的保密性，其次要保证数据不能被伪造或者篡改，基于这两点，我们通常需要对cookie内容进行加密，加密方式一般使用对称加密(单密钥，如<a href="http://baike.baidu.com/view/878529.htm?fromId=7510" target="_blank">DES</a>)或非对称加密(一对密钥，如<a href="http://baike.baidu.com/view/10613.htm?fromId=7520" target="_blank">RSA</a>)，密钥需要保存在服务器端一个安全的地方，这样，别人不知道密钥时，无法对数据进行解密，也无法伪造或篡改数据。另外，像上文提到的，重要的cookie数据需要设置成HttpOnly的，避免跨站脚本获取你的cookie，保证了cookie在浏览器端的安全性。还有我们可以设置cookie只作用于安全的协议(https)，JavaEE中可以通过Cookie类的setSecure(boolean flag)来设置，设置后，该cookie只会在https下发送，而不会再http下发送，保证了cookie在服务器端的安全性，服务器https的设置可以参照<a href="http://blog.csdn.net/lifetragedy/article/details/7699236" target="_blank">该文章</a>。</p>
+<p>JDK7以后，可以去掉实现类中的泛型声明：</p>
+<pre><code><span class="built_in">List</span><span class="subst">&lt;</span><span class="built_in">String</span><span class="subst">&gt;</span> strList <span class="subst">=</span> <span class="literal">new</span> ArrayList<span class="subst">&lt;&gt;</span>;
+</code></pre><p>Oracle也意识到了在等号右面又写一遍泛型是件很2的事情，但是依然不如Guava方便。</p>
+<h3 id="不可变List">不可变List</h3>
+<p>JDK中有两种创建不可变集合的API，且只能包含一个元素，如下代码：</p>
+<pre><code><span class="built_in">List</span><span class="subst">&lt;</span><span class="built_in">String</span><span class="subst">&gt;</span> strList <span class="subst">=</span> Collections<span class="built_in">.</span>singletonList(<span class="string">"1"</span>);<span class="comment">// 返回一个只包含指定对象的不可变列表</span>
+<span class="built_in">List</span><span class="subst">&lt;</span><span class="built_in">String</span><span class="subst">&gt;</span> strList <span class="subst">=</span> Collections<span class="built_in">.</span>emptyList();<span class="comment">// 返回空的列表（不可变的）</span>
+</code></pre><p>但通常我们都需要集合中包含多个元素，这两种API特殊情况下可以用到。</p>
+<p>Collections还可以创建一个不可变的<strong>视图</strong>，如下代码：</p>
+<pre><code><span class="built_in">List</span><span class="subst">&lt;</span><span class="built_in">String</span><span class="subst">&gt;</span> strList <span class="subst">=</span> <span class="literal">new</span> ArrayList<span class="subst">&lt;</span><span class="built_in">String</span><span class="subst">&gt;</span>();
+Collections<span class="built_in">.</span>addAll(strList, <span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>);
+<span class="built_in">List</span><span class="subst">&lt;</span><span class="built_in">String</span><span class="subst">&gt;</span> unmodifiableList <span class="subst">=</span> Collections<span class="built_in">.</span>unmodifiableList(strList);
+</code></pre><p>unmodifiableList是通过包装可变strList生成，其内部引用的是同一个对象，虽然unmodifiableList是无法改变了，但是strList依然可以改变，如：</p>
+<pre><code>strList<span class="preprocessor">.add</span>(<span class="string">"10"</span>)<span class="comment">;</span>
+</code></pre><p>unmodifiableList也随之变化，所以说这是创建一个不可变的<strong>视图</strong>。</p>
+<p>JDK中还可以创建一种<strong>只能修改，但不能增加和删除</strong>的List，如下代码：</p>
+<pre><code><span class="built_in">String</span>[] strArray = <span class="keyword">new</span> <span class="built_in">String</span>[] {<span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>};
+List&lt;<span class="built_in">String</span>&gt; strList = Arrays.asList(strArray);
+</code></pre><p>可以想想，这是由数组决定的特性，这种List实际上就是数组的一个变形，List更方便开发者来使用。</p>
+<p>Guava可以创建一个完全不可变的集合，如下代码：</p>
+<pre><code><span class="keyword">List</span>&lt;<span class="keyword">String</span>&gt; strList = ImmutableList.of(<span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>);
+</code></pre><p>本文只是对Guava Collect的管中窥豹,也仅仅介绍了List部分，更多请移步：<a href="https://code.google.com/p/guava-libraries/wiki/。" target="_blank">https://code.google.com/p/guava-libraries/wiki/。</a></p>
 
       
       <DIV style="FONT-SIZE: 11px; COLOR: #cc0000; MARGIN-TOP: 15px"><P align=center><STRONG>（转载本站文章请注明作者和出处 <A href="/">高爽|Coder</A> ，请勿用于任何商业用途）</STRONG></P></DIV>
@@ -288,13 +289,13 @@
         
   
   <div class="categories">
-    <a href="/categories/Java Web/">Java Web</a>
+    <a href="/categories/Java SE/">Java SE</a>
   </div>
 
         
   
   <div class="tags">
-    <a href="/tags/cookie/">cookie</a>
+    <a href="/tags/Guava/">Guava</a>
   </div>
 
         <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
@@ -308,7 +309,7 @@
 
 <section id="comment">
   <!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="/2014/03/04/cookie深度解析/" data-title="Cookie深度解析" data-url="http://www.ghsau.com/2014/03/04/cookie深度解析/"></div>
+	<div class="ds-thread" data-thread-key="/2014/06/01/guava-collect/" data-title="Guava Collect" data-url="http://www.ghsau.com/2014/06/01/guava-collect/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

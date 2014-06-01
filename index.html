@@ -206,6 +206,53 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2014-06-01T04:52:37.000Z"><a href="/2014/06/01/guava-collect/">2014年06月01日</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/06/01/guava-collect/">Guava Collect</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="Guava是什么">Guava是什么</h2>
+<p>进入新公司就会接触一些新的东东，Guava就是一个，Guava是Google的一个开源类库，丰富了JDK的API，而且使用起来很方便，本文介绍的是Guava collect包下的一些常用工具类。</p>
+<p><img src="/images/guava_package.png" alt=""></p>
+<p>项目主页：<a href="https://code.google.com/p/guava-libraries/" target="_blank">https://code.google.com/p/guava-libraries/</a></p>
+<p>源码下载(GIT)：git clone <a href="https://code.google.com/p/guava-libraries/" target="_blank">https://code.google.com/p/guava-libraries/</a></p>
+<p>Maven依赖：</p>
+<pre><code><span class="tag">&lt;<span class="title">groupId</span>&gt;</span>com.google.guava<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span>
+<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>guava<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span>
+<span class="tag">&lt;<span class="title">version</span>&gt;</span>17.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span>
+</code></pre>
+      
+      <DIV style="FONT-SIZE: 11px; COLOR: #cc0000; MARGIN-TOP: 15px"><P align=center><STRONG>（转载本站文章请注明作者和出处 <A href="/">高爽|Coder</A> ，请勿用于任何商业用途）</STRONG></P></DIV>
+      <DIV style="MARGIN-BOTTOM: 50px; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; TEXT-ALIGN: center; PADDING-TOP: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px">——=== <B>访问 <A href="/404/" target="_blank">404页面</A> 寻找遗失儿童。</B> ===——</DIV>
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/06/01/guava-collect/#more" class="more-link">阅读全文</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2014-05-24T06:18:27.000Z"><a href="/2014/05/24/一张有趣的漫画/">2014年05月24日</a></time>
       
       
@@ -369,71 +416,6 @@
 
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-03-16T09:22:00.000Z"><a href="/2014/03/16/why-31/">2014年03月16日</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/03/16/why-31/">Why 31?</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>前几天被人问到了hashcode如何实现，说实话，真的是没有自己写过，通常情况下都会通过IDE自动生成，惭愧。今天研究了下hashcode的生成原理，首先看一下String类中的hashCode方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-</pre></td><td class="code"><pre><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span>() {
-	<span class="keyword">int</span> h = hash;
-	<span class="keyword">if</span> (h == <span class="number">0</span> && value.length &gt; <span class="number">0</span>) {
-		<span class="keyword">char</span> val[] = value;
-
-		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; value.length; i++) {
-			h = <span class="number">31</span> * h + val[i];
-		}
-		hash = h;
-	}
-	<span class="keyword">return</span> h;
-}
-</pre></td></tr></table></figure>
-
-
-      
-      <DIV style="FONT-SIZE: 11px; COLOR: #cc0000; MARGIN-TOP: 15px"><P align=center><STRONG>（转载本站文章请注明作者和出处 <A href="/">高爽|Coder</A> ，请勿用于任何商业用途）</STRONG></P></DIV>
-      <DIV style="MARGIN-BOTTOM: 50px; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; TEXT-ALIGN: center; PADDING-TOP: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px">——=== <B>访问 <A href="/404/" target="_blank">404页面</A> 寻找遗失儿童。</B> ===——</DIV>
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/03/16/why-31/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
 
 <nav id="pagination">
   
@@ -455,7 +437,7 @@
   <h3 class="title">分类</h3>
   <ul class="entry">
   
-    <li><a href="/categories/Java SE/">Java SE</a><small>4</small></li>
+    <li><a href="/categories/Java SE/">Java SE</a><small>5</small></li>
   
     <li><a href="/categories/Java Web/">Java Web</a><small>4</small></li>
   
@@ -475,7 +457,7 @@
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/31/" style="font-size: 10.00px;">31</a><a href="/tags/MySQL/" style="font-size: 10.00px;">MySQL</a><a href="/tags/SSO/" style="font-size: 20.00px;">SSO</a><a href="/tags/XSS/" style="font-size: 10.00px;">XSS</a><a href="/tags/cookie/" style="font-size: 10.00px;">cookie</a><a href="/tags/eclipse/" style="font-size: 10.00px;">eclipse</a><a href="/tags/hashcode/" style="font-size: 10.00px;">hashcode</a><a href="/tags/notepad++/" style="font-size: 10.00px;">notepad++</a><a href="/tags/刨根问底/" style="font-size: 10.00px;">刨根问底</a><a href="/tags/多线程/" style="font-size: 10.00px;">多线程</a><a href="/tags/序列化/" style="font-size: 20.00px;">序列化</a><a href="/tags/线程安全/" style="font-size: 10.00px;">线程安全</a><a href="/tags/脚本攻击/" style="font-size: 10.00px;">脚本攻击</a>
+    <a href="/tags/31/" style="font-size: 10.00px;">31</a><a href="/tags/Guava/" style="font-size: 10.00px;">Guava</a><a href="/tags/MySQL/" style="font-size: 10.00px;">MySQL</a><a href="/tags/SSO/" style="font-size: 20.00px;">SSO</a><a href="/tags/XSS/" style="font-size: 10.00px;">XSS</a><a href="/tags/cookie/" style="font-size: 10.00px;">cookie</a><a href="/tags/eclipse/" style="font-size: 10.00px;">eclipse</a><a href="/tags/hashcode/" style="font-size: 10.00px;">hashcode</a><a href="/tags/notepad++/" style="font-size: 10.00px;">notepad++</a><a href="/tags/刨根问底/" style="font-size: 10.00px;">刨根问底</a><a href="/tags/多线程/" style="font-size: 10.00px;">多线程</a><a href="/tags/序列化/" style="font-size: 20.00px;">序列化</a><a href="/tags/线程安全/" style="font-size: 10.00px;">线程安全</a><a href="/tags/脚本攻击/" style="font-size: 10.00px;">脚本攻击</a>
   </div>
 </div>
 

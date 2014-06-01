@@ -206,6 +206,71 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2014-03-16T09:22:00.000Z"><a href="/2014/03/16/why-31/">2014年03月16日</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/03/16/why-31/">Why 31?</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>前几天被人问到了hashcode如何实现，说实话，真的是没有自己写过，通常情况下都会通过IDE自动生成，惭愧。今天研究了下hashcode的生成原理，首先看一下String类中的hashCode方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="code"><pre><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span>() {
+	<span class="keyword">int</span> h = hash;
+	<span class="keyword">if</span> (h == <span class="number">0</span> && value.length &gt; <span class="number">0</span>) {
+		<span class="keyword">char</span> val[] = value;
+
+		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; value.length; i++) {
+			h = <span class="number">31</span> * h + val[i];
+		}
+		hash = h;
+	}
+	<span class="keyword">return</span> h;
+}
+</pre></td></tr></table></figure>
+
+
+      
+      <DIV style="FONT-SIZE: 11px; COLOR: #cc0000; MARGIN-TOP: 15px"><P align=center><STRONG>（转载本站文章请注明作者和出处 <A href="/">高爽|Coder</A> ，请勿用于任何商业用途）</STRONG></P></DIV>
+      <DIV style="MARGIN-BOTTOM: 50px; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; TEXT-ALIGN: center; PADDING-TOP: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px">——=== <B>访问 <A href="/404/" target="_blank">404页面</A> 寻找遗失儿童。</B> ===——</DIV>
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/03/16/why-31/#more" class="more-link">阅读全文</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2014-03-05T08:11:00.000Z"><a href="/2014/03/05/完全跨域的单点登录/">2014年03月05日</a></time>
       
       
@@ -437,110 +502,6 @@
 
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-01-28T12:58:00.000Z"><a href="/2014/01/28/java序列化(一)/">2014年01月28日</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/01/28/java序列化(一)/">Java序列化(一)</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>Java序列化，一个日常开发中比较少用到的技术。正常情况下，JVM启动后，我们可以创建对象生存其内，JVM关闭后，我们创建过的对象都随之销毁，资源释放。但有些时候可能要求在JVM停止之后，某些对象需要保存起来，以便将来再重新读取它们。举个例子，应用服务器的HttpSession对象，Session是指浏览器与服务器之间的一次会话，对应的是服务器中的一个Session对象，而客户端中保存一个jsessionid，这里回忆一下Session的知识，之前有文章详细的解析过Session，见<a href="http://blog.csdn.net/ghsau/article/details/13023425" target="_blank">Session深度解析</a>。那么当某种情况下，我们不得不重启服务器的时候，就需要把之前所有的Session对象保存起来，服务器重启之后，将这些Session对象再重新加载过来，这样避免了之前浏览器与服务器建立的会话失效，在浏览器那看来，就好象服务器没有关闭过一样(假设服务器重启期间用户没有操作)。这就用到了Java序列化技术，关于这个例子，我们可以拿Tomcat来测试一下，注意要用正常的手段来关闭服务器(shutdown.bat)，而非强制关闭，强制关闭没有序列化的过程。下面来看一个序列化的程序。</p>
-<p>首先创建一个可序列化的JavaBean类，Name.java。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-</pre></td><td class="code"><pre><span class="keyword">import</span> java.io.Serializable;
-
-<span class="javadoc">/**
- * 可序列化的类，需要实现Serializable接口
- *<span class="javadoctag"> @author</span> 爽
- *
- */</span>
-<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Name</span> <span class="keyword">implements</span> <span class="title">Serializable</span> {</span>
-
-  <span class="keyword">private</span> String firstname;
-  
-  <span class="keyword">private</span> String lastname;
-  
-  <span class="keyword">public</span> <span class="title">Name</span>() {
-    System.out.println(<span class="string">"无参构造器"</span>);
-  }
-
-  <span class="keyword">public</span> <span class="title">Name</span>(String firstname, String lastname) {
-    System.out.println(<span class="string">"全参构造器"</span>);
-    <span class="keyword">this</span>.firstname = firstname;
-    <span class="keyword">this</span>.lastname = lastname;
-  }
-
-  <span class="comment">// getter and setter methods</span>
-  
-  <span class="annotation">@Override</span>
-  <span class="keyword">public</span> String <span class="title">toString</span>() {
-    <span class="keyword">return</span> <span class="string">"我的名字是"</span> + firstname + <span class="string">","</span> + lastname;
-  }
-  
-}
-</pre></td></tr></table></figure>
-
-
-      
-      <DIV style="FONT-SIZE: 11px; COLOR: #cc0000; MARGIN-TOP: 15px"><P align=center><STRONG>（转载本站文章请注明作者和出处 <A href="/">高爽|Coder</A> ，请勿用于任何商业用途）</STRONG></P></DIV>
-      <DIV style="MARGIN-BOTTOM: 50px; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; TEXT-ALIGN: center; PADDING-TOP: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px">——=== <B>访问 <A href="/404/" target="_blank">404页面</A> 寻找遗失儿童。</B> ===——</DIV>
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/01/28/java序列化(一)/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
 
 <nav id="pagination">
   
@@ -564,7 +525,7 @@
   <h3 class="title">分类</h3>
   <ul class="entry">
   
-    <li><a href="/categories/Java SE/">Java SE</a><small>4</small></li>
+    <li><a href="/categories/Java SE/">Java SE</a><small>5</small></li>
   
     <li><a href="/categories/Java Web/">Java Web</a><small>4</small></li>
   
@@ -584,7 +545,7 @@
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/31/" style="font-size: 10.00px;">31</a><a href="/tags/MySQL/" style="font-size: 10.00px;">MySQL</a><a href="/tags/SSO/" style="font-size: 20.00px;">SSO</a><a href="/tags/XSS/" style="font-size: 10.00px;">XSS</a><a href="/tags/cookie/" style="font-size: 10.00px;">cookie</a><a href="/tags/eclipse/" style="font-size: 10.00px;">eclipse</a><a href="/tags/hashcode/" style="font-size: 10.00px;">hashcode</a><a href="/tags/notepad++/" style="font-size: 10.00px;">notepad++</a><a href="/tags/刨根问底/" style="font-size: 10.00px;">刨根问底</a><a href="/tags/多线程/" style="font-size: 10.00px;">多线程</a><a href="/tags/序列化/" style="font-size: 20.00px;">序列化</a><a href="/tags/线程安全/" style="font-size: 10.00px;">线程安全</a><a href="/tags/脚本攻击/" style="font-size: 10.00px;">脚本攻击</a>
+    <a href="/tags/31/" style="font-size: 10.00px;">31</a><a href="/tags/Guava/" style="font-size: 10.00px;">Guava</a><a href="/tags/MySQL/" style="font-size: 10.00px;">MySQL</a><a href="/tags/SSO/" style="font-size: 20.00px;">SSO</a><a href="/tags/XSS/" style="font-size: 10.00px;">XSS</a><a href="/tags/cookie/" style="font-size: 10.00px;">cookie</a><a href="/tags/eclipse/" style="font-size: 10.00px;">eclipse</a><a href="/tags/hashcode/" style="font-size: 10.00px;">hashcode</a><a href="/tags/notepad++/" style="font-size: 10.00px;">notepad++</a><a href="/tags/刨根问底/" style="font-size: 10.00px;">刨根问底</a><a href="/tags/多线程/" style="font-size: 10.00px;">多线程</a><a href="/tags/序列化/" style="font-size: 20.00px;">序列化</a><a href="/tags/线程安全/" style="font-size: 10.00px;">线程安全</a><a href="/tags/脚本攻击/" style="font-size: 10.00px;">脚本攻击</a>
   </div>
 </div>
 

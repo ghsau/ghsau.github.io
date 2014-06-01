@@ -4,7 +4,7 @@
   <subtitle><![CDATA[在通向架构师的路上]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.ghsau.com/"/>
-  <updated>2014-05-24T18:10:08.120Z</updated>
+  <updated>2014-06-01T09:57:02.702Z</updated>
   <id>http://www.ghsau.com/</id>
   
   <author>
@@ -13,6 +13,94 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Guava Collect]]></title>
+    <link href="http://www.ghsau.com/2014/06/01/guava-collect/"/>
+    <id>http://www.ghsau.com/2014/06/01/guava-collect/</id>
+    <published>2014-06-01T04:52:37.000Z</published>
+    <updated>2014-06-01T09:49:27.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="Guava是什么">Guava是什么</h2>
+<p>进入新公司就会接触一些新的东东，Guava就是一个，Guava是Google的一个开源类库，丰富了JDK的API，而且使用起来很方便，本文介绍的是Guava collect包下的一些常用工具类。</p>
+<p><img src="/images/guava_package.png" alt=""></p>
+<p>项目主页：<a href="https://code.google.com/p/guava-libraries/" target="_blank">https://code.google.com/p/guava-libraries/</a></p>
+<p>源码下载(GIT)：git clone <a href="https://code.google.com/p/guava-libraries/" target="_blank">https://code.google.com/p/guava-libraries/</a></p>
+<p>Maven依赖：</p>
+<pre><code><span class="tag">&lt;<span class="title">groupId</span>&gt;</span>com.google.guava<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span>
+<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>guava<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span>
+<span class="tag">&lt;<span class="title">version</span>&gt;</span>17.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span>
+</code></pre><a id="more"></a>
+
+<h2 id="代码演示">代码演示</h2>
+<h3 id="List">List</h3>
+<p>一般情况下，我们创建一个List集合，使用如下代码：</p>
+<pre><code><span class="built_in">List</span><span class="subst">&lt;</span><span class="built_in">String</span><span class="subst">&gt;</span> strList <span class="subst">=</span> <span class="literal">new</span> ArrayList<span class="subst">&lt;</span><span class="built_in">String</span><span class="subst">&gt;</span>();
+strList<span class="built_in">.</span>add(<span class="string">"1"</span>);
+strList<span class="built_in">.</span>add(<span class="string">"2"</span>);
+strList<span class="built_in">.</span>add(<span class="string">"3"</span>);
+</code></pre><p>使用Collections工具类，可以简化：</p>
+<pre><code><span class="built_in">List</span><span class="subst">&lt;</span><span class="built_in">String</span><span class="subst">&gt;</span> strList <span class="subst">=</span> <span class="literal">new</span> ArrayList<span class="subst">&lt;</span><span class="built_in">String</span><span class="subst">&gt;</span>();
+Collections<span class="built_in">.</span>addAll(strList, <span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>);
+</code></pre><p>使用Guava，可以进一步简化：</p>
+<pre><code><span class="keyword">List</span>&lt;<span class="keyword">String</span>&gt; strList = Lists.newArrayList(<span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>);
+</code></pre><p>Lists.newArrayList(“1”, “2”, “3”)其实就是对第二步的一个封装，并且这里使用了Java泛型推断，可以看一下源码：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="code"><pre><span class="keyword">public</span> <span class="keyword">static</span> &lt;E&gt; ArrayList&lt;E&gt; newArrayList(E... elements) {
+    checkNotNull(elements); <span class="comment">// for GWT</span>
+    <span class="comment">// Avoid integer overflow when a large array is passed in</span>
+    <span class="keyword">int</span> capacity = computeArrayListCapacity(elements.length);
+    ArrayList&lt;E&gt; <span class="built_in">list</span> = <span class="keyword">new</span> ArrayList&lt;E&gt;(capacity);
+    Collections.addAll(<span class="built_in">list</span>, elements);
+    <span class="keyword">return</span> <span class="built_in">list</span>;
+}
+</pre></td></tr></table></figure>
+
+<p>JDK7以后，可以去掉实现类中的泛型声明：</p>
+<pre><code><span class="built_in">List</span><span class="subst">&lt;</span><span class="built_in">String</span><span class="subst">&gt;</span> strList <span class="subst">=</span> <span class="literal">new</span> ArrayList<span class="subst">&lt;&gt;</span>;
+</code></pre><p>Oracle也意识到了在等号右面又写一遍泛型是件很2的事情，但是依然不如Guava方便。</p>
+<h3 id="不可变List">不可变List</h3>
+<p>JDK中有两种创建不可变集合的API，且只能包含一个元素，如下代码：</p>
+<pre><code><span class="built_in">List</span><span class="subst">&lt;</span><span class="built_in">String</span><span class="subst">&gt;</span> strList <span class="subst">=</span> Collections<span class="built_in">.</span>singletonList(<span class="string">"1"</span>);<span class="comment">// 返回一个只包含指定对象的不可变列表</span>
+<span class="built_in">List</span><span class="subst">&lt;</span><span class="built_in">String</span><span class="subst">&gt;</span> strList <span class="subst">=</span> Collections<span class="built_in">.</span>emptyList();<span class="comment">// 返回空的列表（不可变的）</span>
+</code></pre><p>但通常我们都需要集合中包含多个元素，这两种API特殊情况下可以用到。</p>
+<p>Collections还可以创建一个不可变的<strong>视图</strong>，如下代码：</p>
+<pre><code><span class="built_in">List</span><span class="subst">&lt;</span><span class="built_in">String</span><span class="subst">&gt;</span> strList <span class="subst">=</span> <span class="literal">new</span> ArrayList<span class="subst">&lt;</span><span class="built_in">String</span><span class="subst">&gt;</span>();
+Collections<span class="built_in">.</span>addAll(strList, <span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>);
+<span class="built_in">List</span><span class="subst">&lt;</span><span class="built_in">String</span><span class="subst">&gt;</span> unmodifiableList <span class="subst">=</span> Collections<span class="built_in">.</span>unmodifiableList(strList);
+</code></pre><p>unmodifiableList是通过包装可变strList生成，其内部引用的是同一个对象，虽然unmodifiableList是无法改变了，但是strList依然可以改变，如：</p>
+<pre><code>strList<span class="preprocessor">.add</span>(<span class="string">"10"</span>)<span class="comment">;</span>
+</code></pre><p>unmodifiableList也随之变化，所以说这是创建一个不可变的<strong>视图</strong>。</p>
+<p>JDK中还可以创建一种<strong>只能修改，但不能增加和删除</strong>的List，如下代码：</p>
+<pre><code><span class="built_in">String</span>[] strArray = <span class="keyword">new</span> <span class="built_in">String</span>[] {<span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>};
+List&lt;<span class="built_in">String</span>&gt; strList = Arrays.asList(strArray);
+</code></pre><p>可以想想，这是由数组决定的特性，这种List实际上就是数组的一个变形，List更方便开发者来使用。</p>
+<p>Guava可以创建一个完全不可变的集合，如下代码：</p>
+<pre><code><span class="keyword">List</span>&lt;<span class="keyword">String</span>&gt; strList = ImmutableList.of(<span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>);
+</code></pre><p>本文只是对Guava Collect的管中窥豹,也仅仅介绍了List部分，更多请移步：<a href="https://code.google.com/p/guava-libraries/wiki/。" target="_blank">https://code.google.com/p/guava-libraries/wiki/。</a></p>
+]]></content>
+    <summary type="html"><![CDATA[<h2 id="Guava是什么">Guava是什么</h2>
+<p>进入新公司就会接触一些新的东东，Guava就是一个，Guava是Google的一个开源类库，丰富了JDK的API，而且使用起来很方便，本文介绍的是Guava collect包下的一些常用工具类。</p>
+<p><img src="/images/guava_package.png" alt=""></p>
+<p>项目主页：<a href="https://code.google.com/p/guava-libraries/" target="_blank">https://code.google.com/p/guava-libraries/</a></p>
+<p>源码下载(GIT)：git clone <a href="https://code.google.com/p/guava-libraries/" target="_blank">https://code.google.com/p/guava-libraries/</a></p>
+<p>Maven依赖：</p>
+<pre><code><span class="tag">&lt;<span class="title">groupId</span>&gt;</span>com.google.guava<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span>
+<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>guava<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span>
+<span class="tag">&lt;<span class="title">version</span>&gt;</span>17.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span>
+</code></pre>]]></summary>
+    
+      <category term="Guava" scheme="http://www.ghsau.com/tags/Guava/"/>
+    
+      <category term="Java SE" scheme="http://www.ghsau.com/categories/Java%20SE/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[一张有趣的漫画]]></title>
